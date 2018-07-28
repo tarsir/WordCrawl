@@ -17,3 +17,7 @@ class Character(override val name: String,
     fun combatStatus() = "${name}: ${currentHitpoints} (${maxHitpoints})"
     fun isDead() = if (currentHitpoints <= 0) true else false
 }
+
+fun getCombatOptions(player: Character): List<String> {
+    return listOf("punch", "hold")
+}

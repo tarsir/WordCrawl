@@ -87,7 +87,7 @@ fun fightStart(char1: Character, char2: Character) {
     var combatResult: CombatResult = evalCombatResult(char1, char2)
 
     while (combatResult == CombatResult.ONGOING) {
-        doCombatRoundForCharacter(char1, char2)
+        if (!doCombatRoundForCharacter(char1, char2)) continue
         doCombatRoundForCharacter(char2, char1)
         printCombatStatuses(char1, char2)
 
@@ -97,14 +97,14 @@ fun fightStart(char1: Character, char2: Character) {
     printCombatResult(combatResult)
 }
 
-fun doCombatRoundForCharacter(char1: Character, char2: Character) {
+fun doCombatRoundForCharacter(char1: Character, char2: Character): Boolean {
     var combatAction = char1.actionHandler.getCombatAction(char1, char2)
     if (combatAction == null) {
-        println("Input a number!")
-        return
+        return false
     }
     val attackResult = combatAction.executeAction()
     printAttackResult(attackResult, char1, char2)
+    return true
 }
 
 fun printCombatStatuses(char1: Character, char2: Character) {
